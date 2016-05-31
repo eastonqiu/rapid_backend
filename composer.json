@@ -14,7 +14,9 @@
         "jlapp/swaggervel": "dev-master",
         "doctrine/dbal": "~2.3",
         "tymon/jwt-auth": "0.5.*",
-        "dingo/api": "1.0.*@dev"
+        "dingo/api": "1.0.*@dev",
+        "barryvdh/laravel-cors": "^0.8.0",
+        "socialiteproviders/weixin": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

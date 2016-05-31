@@ -15,7 +15,7 @@
         },
         "version": "1.0.0"
     },
-    "host": "t.com",
+    "host": "api.qqm.lingyunstrong.com",
     "basePath": "/api/v1",
     "schemes": [
         "http"
@@ -67,6 +67,9 @@
                                 "data": {
                                     "properties": {
                                         "token": {
+                                            "type": "string"
+                                        },
+                                        "user": {
                                             "type": "string"
                                         }
                                     },

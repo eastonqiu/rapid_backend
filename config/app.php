@@ -175,6 +175,15 @@ return [
          */
         'Tymon\JWTAuth\Providers\JWTAuthServiceProvider',
 
+        /*
+         * cors
+         */
+        'Barryvdh\Cors\ServiceProvider',
+
+        /*
+         * SocialiteProvider
+         */
+        \SocialiteProviders\Manager\ServiceProvider::class,
 
     ],
 
@@ -234,6 +243,11 @@ return [
          */
         'JWTAuth' => 'Tymon\JWTAuth\Facades\JWTAuth',
         'JWTFactory' => 'Tymon\JWTAuth\Facades\JWTFactory',
+
+        /*
+         * SocialiteProviders
+         */
+        'Socialite' => 'Laravel\Socialite\Facades\Socialite',
 
     ],
 

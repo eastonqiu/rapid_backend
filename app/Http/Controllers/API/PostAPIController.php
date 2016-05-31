@@ -25,6 +25,7 @@ class PostAPIController extends AppBaseController
 
     public function __construct(PostRepository $postRepo)
     {
+        $this->middleware('api.auth', ['only' => ['store', 'update']]);
         $this->postRepository = $postRepo;
     }
 

@@ -81,6 +81,10 @@ class AuthAPIController extends AppBaseController
      *                  @SWG\Property(
      *                  	property="token",
      *                  	type="string"
+     *                  ),
+     *                  @SWG\Property(
+     *                  	property="user",
+     *                  	type="string"
      *                  )
      *              ),
      *              @SWG\Property(
@@ -113,7 +117,7 @@ class AuthAPIController extends AppBaseController
         	}
         	
         	$token = JWTAuth::fromUser($user);
-        	return $this->sendResponse(['token'=>$token], 'Auth successfully');
+        	return $this->sendResponse(['token'=>$token, 'user'=>$user], 'Auth successfully');
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts
@@ -148,6 +152,18 @@ class AuthAPIController extends AppBaseController
             }
         }
     }
+
+    public function getUserInfo() {
+        $user = JWTAuth::authenticate(JWTAuth::getToken());
+        return $this->sendResponse(['user'=>$user], 'success');
+    }
+
+    public function logout() {
+        Log::debug('logout now');
+        JWTAuth::invalidate(JWTAuth::getToken());
+        Log::debug('logout finish');
+        return $this->sendResponse(null, 'success');
+    } 
 
     public function getVerificationcode(Request $request) {
 

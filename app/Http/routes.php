@@ -11,6 +11,8 @@
 |
 */
 
+use Socialite;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -34,3 +36,7 @@ Route::get('/home', 'HomeController@index');
 
 
 Route::resource('posts', 'PostController');
+
+Route::get('/snsLogin', function() {
+    return Socialite::with('weixin')->redirect();
+});

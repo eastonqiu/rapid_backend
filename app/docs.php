@@ -16,7 +16,7 @@
  *   termsOfService="http://swagger.io/terms/"
  * )
  * @SWG\Swagger(
- *   host="t.com",
+ *   host="api.qqm.lingyunstrong.com",
  *   basePath="/api/v1",
  *   schemes={"http"},
  *   produces={"application/json"},
