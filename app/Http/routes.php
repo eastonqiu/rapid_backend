@@ -11,8 +11,6 @@
 |
 */
 
-use Socialite;
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -30,13 +28,10 @@ Route::group(['prefix' => 'api', 'middleware'=>'api', 'namespace' => 'API'], fun
     });
 });
 
-Route::auth();
+// Route::auth();
+//
+Route::controller('sns', 'SNSController');
 
 Route::get('/home', 'HomeController@index');
 
-
 Route::resource('posts', 'PostController');
-
-Route::get('/snsLogin', function() {
-    return Socialite::with('weixin')->redirect();
-});
