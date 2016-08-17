@@ -42,7 +42,7 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver' => 'jwt',
             'provider' => 'users',
         ],
     ],
@@ -103,5 +103,8 @@ return [
             'expire' => 60,
         ],
     ],
+
+    // add this to fix entrust bug for laravel5.2
+    'model' => App\Models\User::class,
 
 ];

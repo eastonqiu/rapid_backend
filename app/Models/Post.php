@@ -36,14 +36,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Post extends Model
 {
-    use SoftDeletes;
-
     public $table = 'posts';
     
-
-    protected $dates = ['deleted_at'];
-
-
     public $fillable = [
         'title'
     ];
@@ -65,4 +59,12 @@ class Post extends Model
     public static $rules = [
         'title' => 'required'
     ];
+
+    /**
+     * Get the user that owns the task.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

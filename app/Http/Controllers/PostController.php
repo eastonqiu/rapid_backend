@@ -31,7 +31,7 @@ class PostController extends AppBaseController
     public function index(Request $request)
     {
         $this->postRepository->pushCriteria(new RequestCriteria($request));
-        $posts = $this->postRepository->all();
+        $posts = $this->postRepository->paginate(10);
 
         return view('posts.index')
             ->with('posts', $posts);
@@ -116,6 +116,8 @@ class PostController extends AppBaseController
     public function update($id, UpdatePostRequest $request)
     {
         $post = $this->postRepository->findWithoutFail($id);
+        // check
+        $this->authorize($post);
 
         if (empty($post)) {
             Flash::error('Post not found');
@@ -140,6 +142,8 @@ class PostController extends AppBaseController
     public function destroy($id)
     {
         $post = $this->postRepository->findWithoutFail($id);
+        // check
+        $this->authorize($post);
 
         if (empty($post)) {
             Flash::error('Post not found');

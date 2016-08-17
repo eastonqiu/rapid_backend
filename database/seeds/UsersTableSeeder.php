@@ -24,31 +24,5 @@ class UsersTableSeeder extends Seeder
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
-
-        DB::table('users')->insert([
-            'name' => str_random(10),
-            'email' => str_random(10) . '@163.com',
-            'nickname' => str_random(10),
-            'avatar' => 'http://img.mp.itc.cn/upload/20160528/74a3f298a3184542bd468786d59feae9.jpg',
-            'sex' => 1,
-            'city' => '深圳',
-            'country' => '中国',
-            'password' => bcrypt(str_random(10)),
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('users')->insert([
-            'name' => str_random(10),
-            'email' => str_random(10) . '@163.com',
-            'nickname' => str_random(10),
-            'avatar' => 'http://img.mp.itc.cn/upload/20160528/74a3f298a3184542bd468786d59feae9.jpg',
-            'sex' => 2,
-            'city' => '深圳',
-            'country' => '中国',
-            'password' => bcrypt(str_random(10)),
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
-        ]);
     }
 }

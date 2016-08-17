@@ -41,4 +41,13 @@ return [
         'redirect' => env('WEIXIN_REDIRECT_URI'),  
     ],
 
+    /*
+    | Acacha Llum services...
+    |
+    | See: https://github.com/acacha/llum
+    |
+    */
+    #llum_services
+
+
 ];

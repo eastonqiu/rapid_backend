@@ -102,7 +102,7 @@ return [
 
     'options' => [
 
-        'softDelete' => true,
+        'softDelete' => false,
 
         'tables_searchable_default' => false,
     ],

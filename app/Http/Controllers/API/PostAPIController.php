@@ -7,6 +7,7 @@ use App\Http\Requests\API\UpdatePostAPIRequest;
 use App\Models\Post;
 use App\Repositories\PostRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use InfyOm\Generator\Controller\AppBaseController;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use InfyOm\Generator\Utils\ResponseUtil;
@@ -25,7 +26,7 @@ class PostAPIController extends AppBaseController
 
     public function __construct(PostRepository $postRepo)
     {
-        $this->middleware('api.auth', ['only' => ['store', 'update']]);
+        $this->middleware('auth:api', ['only' => ['store', 'update', 'delete', 'show']]);
         $this->postRepository = $postRepo;
     }
 
@@ -219,6 +220,8 @@ class PostAPIController extends AppBaseController
 
         /** @var Post $post */
         $post = $this->postRepository->find($id);
+        // check
+        $this->authorize($post);
 
         if (empty($post)) {
             return Response::json(ResponseUtil::makeError('Post not found'), 400);
@@ -271,6 +274,8 @@ class PostAPIController extends AppBaseController
     {
         /** @var Post $post */
         $post = $this->postRepository->find($id);
+        // check
+        $this->authorize($post);
 
         if (empty($post)) {
             return Response::json(ResponseUtil::makeError('Post not found'), 400);

@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -11,11 +12,28 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->safeEmail,
+        'nickname' => str_random(10),
+        'avatar' => 'http://img.mp.itc.cn/upload/20160528/74a3f298a3184542bd468786d59feae9.jpg',
+        'sex' => 1,
+        'city' => '深圳',
+        'country' => '中国',
         'password' => bcrypt(str_random(10)),
-        'remember_token' => str_random(10),
+        'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+    ];
+});
+
+$factory->define(App\Models\Post::class, function ($faker) {
+    return [
+        'title' => $faker->title,
+        'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        'user_id' => function () {
+            return factory(App\Models\User::class)->create()->id;
+        }
     ];
 });

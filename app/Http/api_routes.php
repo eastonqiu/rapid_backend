@@ -12,13 +12,13 @@
 
 
 
-Route::group(['middleware' => 'api.auth'], function () {
+Route::group(['middleware' => 'auth:api'], function () {
     Route::get('getUserInfo', 'AuthAPIController@getUserInfo');
-    Route::get('logout', 'AuthAPIController@logout');
+    Route::get('logout', 'AuthController@logout');
 });
 
-Route::resource('posts', 'PostAPIController');
 
 // Auth
-Route::any('login', 'AuthAPIController@login');
+Route::any('login', 'AuthController@login');
 // Route::post('refresh', 'AuthAPIController@refreshToken');
+Route::resource('posts', 'PostAPIController');

@@ -18,6 +18,8 @@
         @else
             @include('posts.table')
         @endif
-        
+
+        @include('core-templates::common.paginate', ['records' => $posts])
+
     </div>
 @endsection

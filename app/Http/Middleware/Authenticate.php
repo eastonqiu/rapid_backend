@@ -25,6 +25,10 @@ class Authenticate
             }
         }
 
+        if (! is_null($guard)) {
+            Auth::shouldUse($guard);
+        }
+
         return $next($request);
     }
 }
