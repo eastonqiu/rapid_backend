@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
+use InfyOm\Generator\Utils\ResponseUtil;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -58,20 +59,16 @@ class AuthController extends Controller
             $this->clearLoginAttempts($request);
         }
 
-        if (method_exists($this, 'authenticated')) {
-            return $this->authenticated($request, Auth::guard($this->getGuard())->user(), $token);
-        }
-
-        return redirect()->intended($this->redirectPath());
+        return $this->authenticated($request, Auth::guard($this->getGuard())->user(), $token);
     }
 
     protected function authenticated($request, $user, $token)
     {
-        return response()->json([
+        return Response::json(ResponseUtil::makeResponse('login successfully', [
             'user'    => $user,
             'request' => $request->all(),
             'token'   => $token
-        ]);
+        ]));
     }
 
    /**
@@ -97,7 +94,6 @@ class AuthController extends Controller
         $credentials = $this->getCredentials($request);
 
         if ($token = Auth::guard($this->getGuard())->attempt($credentials)) {
-            \Log::debug($this->getGuard());
             return $this->handleUserWasAuthenticated($request, $throttles, $token);
         }
 
@@ -113,11 +109,7 @@ class AuthController extends Controller
 
     protected function sendFailedLoginResponse(Request $request)
     {
-        return response()->json([
-            'message'  => $this->getFailedLoginMessage(),
-            'username' => $this->loginUsername(),
-            'request'  => $request,
-        ]);
+        return Response::json(ResponseUtil::makeError($this->getFailedLoginMessage()));
     }
 
     public function register(Request $request)
@@ -133,20 +125,32 @@ class AuthController extends Controller
         $this->create($request->all());
 
         $credentials = [
-            'username' => $request['username'],
+            'email' => $request['username'],
             'password' => $request['password'],
         ];
 
         $token = Auth::guard($this->getGuard())->attempt($credentials);
 
-        return response()->json(['token' => $token]);
+        return Response::json(ResponseUtil::makeResponse('login successfully', [
+            'token' => $token
+        ]));
     }
 
     public function logout()
     {
         Auth::guard($this->getGuard())->logout();
 
-        return response()->json(['error' => '0', 'errmsg' => 'success']);
+        return Response::json(ResponseUtil::makeResponse('logout successfully', []));
     }
 
+    public function refreshToken(Request $request) {
+        $token = Auth::guard($this->getGuard())->refresh();
+        return Response::json(ResponseUtil::makeResponse('refresh successfully', [
+            'token' => $token,
+        ]));
+    }
+
+    public function getUserInfo() {
+        return Response::json(ResponseUtil::makeResponse('success', ['user' => Auth::user()]));
+    }
 }
