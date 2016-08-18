@@ -134,7 +134,11 @@ class UserController extends AppBaseController
         }
 
         $input = $request->except('roles');
-        $input['password'] = bcrypt($input['password']);
+
+        if(isset($input['password'])) {
+            $input['password'] = bcrypt($input['password']);
+        }
+
         $user = $this->userRepository->update($input, $id);
 
         $user->roles()->sync($request->get('roles')? : []);

@@ -26,7 +26,12 @@ class UpdateUserRequest extends Request
     public function rules()
     {
         $rules = User::$rules;
-        $rules['email'] = $rules['email'] . ',email,' . $this->id;
+        if(empty($this->password)) {
+            $rules['email'] = $rules['email'] . ',email,' . $this->id;
+            unset($rules['password']);
+        } else {
+            $rules = ['password' => $rules['password']];
+        }
         return $rules;
     }
 }
