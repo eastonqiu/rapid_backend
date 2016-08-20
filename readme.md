@@ -1,14 +1,26 @@
+# Rapid Backend (A backend starter based on Laravel 5.2)  
+Compose Code Generator([Infyom Laravel-Generator](https://github.com/InfyOmLabs/laravel-generator)), API JWT Token([JWT-Auth](https://github.com/tymondesigns/jwt-auth)), RBAC(Role Based Access Control, [Entrust](https://github.com/Zizaco/entrust)) & ACL([Laravel Policy](https://laravel.com/docs/5.2/authorization#policies)), and Administror Theme [AdminLTE](https://github.com/acacha/adminlte-laravel), and API Doc(Swagger).  
+You can quickly add your bussiness and control every resources based on RBAC, just config the permission in the admin UI. It is very easy to config every permission to any user, and easy to extend.
+
+# Premise
+* You are a laraveler and familiar with [laravel 5.2](https://laravel.com/docs/5.2)
+* [JWT(JSON Web Token)](https://jwt.io/introduction/), a token(auth payload) to access a stateless api instead of the cookies in browser.
+* [About RBAC](https://en.wikipedia.org/wiki/Role-based_access_control)
+* ACL, we just make the owner have all the permissions of their own resources (related with themselves).
+* AdminLTE, a imagzing admin theme...you will like it.
+* Swagger (coming soon...)
+
+# Screenshots
+> comming soon...
+
 # Setup
-- copy .env.example to .env, modify db settings.
-- modify permission
+* clone this repo. (some install steps can refer to [laravel installation](https://laravel.com/docs/5.2/#installation)).
+* copy .env.example to .env, create database and modify db connection settings.
+* modify folder permission
 ```
 sudo chmod -R www-data:www-data storage bootstrap/cache
 ```
-- create database in your mysql.
-```
-php artisam migrate:refresh --seed
-```
-- enable rewrite module
+* enable rewrite module
 ```
 sudo ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/
 
@@ -19,22 +31,53 @@ sudo ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/
     AllowOverride All
 </Directory>
 ```
-
-use llum https://github.com/acacha/llum to speed up laravel development
+* migrate database and seed
 ```
-composer global require "acacha/llum=~0.1"
-llum devtools
-llum serve
+php artisam migrate:refresh --seed
 ```
+we generate three kind of accounts:  
+|     email      | password |     desc    
+|  root@163.com  | 123456   |  super user   
+|  admin@163.com | 123456   |  admin user can not change role and permission  
+|  jack@163.com  | 123456   |  a normal user that only have the permissions of their own resources     
 
-- sidebar menu active
-https://laracasts.com/discuss/channels/general-discussion/requestis-active-links-woes
-'''
-Request::is('user/*');
-Request::is('user/*/edit');
-Request::is('user/*/etc...');
-<li class="treeview {{ (Request::is('*users*show*')) ? 'active':'' }}">
-'''
+* start server in the root folder
+```
+php artisan serve
+```
+try the three accounts and feel it.  
+open http://localhost:8000/login in browser
+
+
+# JWTGuard
 
 - JWT
 https://github.com/tymondesigns/jwt-auth/issues/513#issuecomment-186087297
+
+# Resource Access Protection.
+
+## Owner Resource Protection ([Laravel Policy](https://laravel.com/docs/5.2/authorization#policies))
+
+
+## RBAC - [Entrust](https://github.com/Zizaco/entrust)
+
+It can not support CACHE_DRIVER=file in the stable branch, fix commits:  
+https://github.com/Zizaco/entrust/issues/612
+https://github.com/Zizaco/entrust/pull/547
+change the version: dev-master#6a0fd8c3b73037b4855c6c4eaf1060788c0df1e9
+
+## Config Permissions
+
+# AdminLTE Sidebar Config
+
+# Laravel Generator(Infyom Lab)
+
+# Swagger UI
+comming soon....
+
+# TODO
+
+# Issues and discussion are welcome. ^_^
+
+# License
+MIT
