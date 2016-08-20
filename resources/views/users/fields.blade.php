@@ -19,6 +19,7 @@
     {!! Form::email('email', null, ['class' => 'form-control']) !!}
 </div>
 
+@permission('role-all')
 <!-- Roles Field -->
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('roles', 'Roles:') !!}
@@ -29,6 +30,8 @@
         </div>
     @endforeach
 </div>
+@endpermission
+
 @endif
 
 <!-- Submit Field -->

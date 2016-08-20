@@ -38,8 +38,14 @@
             <li class="treeview {{ (Request::is('users*', 'roles*', 'permissions*')) ? 'active':'' }}">
                 <a href="#"><i class='fa fa-link'></i> <span>User Management</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
+                    @permission('permission-all')
                     <li class="{{ (Request::is('permissions*')) ? 'active':'' }}"><a href="{{ url('permissions') }}"><i class='fa fa-link'></i> <span>Permissions</span></a></li>
+                    @endpermission
+
+                    @permission('role-all')
                     <li class="{{ (Request::is('roles*')) ? 'active':'' }}"><a href="{{ url('roles') }}"><i class='fa fa-link'></i> <span>Roles</span></a></li>
+                    @endpermission
+
                     <li class="{{ (Request::is('users*')) ? 'active':'' }}"><a href="{{ url('users') }}"><i class='fa fa-link'></i> <span>Users</span></a></li>
                 </ul>
             </li>
