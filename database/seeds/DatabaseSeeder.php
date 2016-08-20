@@ -11,13 +11,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\User::class, 50)->create()->each(function($u) {
-            $u->posts()->save(factory(App\Models\Post::class)->make());
-        });
+        // =========== generate data ===============//
         $this->call(PermissionsTableSeeder::class);
         $this->call(RolesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(PostsTableSeeder::class);
+
+        factory(App\Models\User::class, 50)->create()->each(function($u) {
+            $u->posts()->save(factory(App\Models\Post::class)->make());
+        });
+        // =========== generate data ===============//
 
         // init relations
         $allPerms = \App\Models\Permission::all();
