@@ -158,8 +158,9 @@ class PostAPIController extends AppBaseController
      */
     public function show($id)
     {
-        /** @var Post $post */
         $post = $this->postRepository->find($id);
+
+        $this->authorize($post); // check
 
         if (empty($post)) {
             return Response::json(ResponseUtil::makeError('Post not found'), 400);
@@ -220,8 +221,8 @@ class PostAPIController extends AppBaseController
 
         /** @var Post $post */
         $post = $this->postRepository->find($id);
-        // check
-        $this->authorize($post);
+
+        $this->authorize($post); // check
 
         if (empty($post)) {
             return Response::json(ResponseUtil::makeError('Post not found'), 400);
@@ -274,8 +275,8 @@ class PostAPIController extends AppBaseController
     {
         /** @var Post $post */
         $post = $this->postRepository->find($id);
-        // check
-        $this->authorize($post);
+
+        $this->authorize($post); // check
 
         if (empty($post)) {
             return Response::json(ResponseUtil::makeError('Post not found'), 400);

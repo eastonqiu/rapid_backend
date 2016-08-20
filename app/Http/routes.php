@@ -30,11 +30,8 @@ Route::group(['prefix' => 'api', 'middleware'=>'api', 'namespace' => 'API'], fun
 
 Route::get('/home', 'HomeController@index');
 
-Route::resource('posts', 'PostController');
-
 Route::get('login', 'Auth\AuthController@getLogin');
 Route::post('login', 'Auth\AuthController@postLogin');
-Route::get('logout', 'Auth\AuthController@logout');
 
 // Registration Routes...
 Route::get('register', 'Auth\AuthController@getRegister');
@@ -46,9 +43,17 @@ Route::post('password/email', 'Auth\PasswordController@postEmail');
 Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
 Route::post('password/reset', 'Auth\PasswordController@postReset');
 
-// user management
-Route::resource('permissions', 'PermissionController');
-Route::resource('roles', 'RoleController');
-Route::resource('users', 'UserController');
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('logout', 'Auth\AuthController@logout');
+
+    Route::resource('roles', 'RoleController');
+    Route::resource('permissions', 'PermissionController');
+
+    // users
+    Route::resource('users', 'UserController');
+
+    // posts
+    Route::resource('posts', 'PostController');
+});
 
 Route::controller('sns', 'SNSController');

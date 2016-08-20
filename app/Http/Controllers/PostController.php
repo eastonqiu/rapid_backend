@@ -76,6 +76,8 @@ class PostController extends AppBaseController
     {
         $post = $this->postRepository->findWithoutFail($id);
 
+        $this->authorize($post); // check
+
         if (empty($post)) {
             Flash::error('Post not found');
 
@@ -95,6 +97,8 @@ class PostController extends AppBaseController
     public function edit($id)
     {
         $post = $this->postRepository->findWithoutFail($id);
+
+        $this->authorize('update', $post); // check
 
         if (empty($post)) {
             Flash::error('Post not found');
@@ -116,8 +120,8 @@ class PostController extends AppBaseController
     public function update($id, UpdatePostRequest $request)
     {
         $post = $this->postRepository->findWithoutFail($id);
-        // check
-        $this->authorize($post);
+
+        $this->authorize($post); // check
 
         if (empty($post)) {
             Flash::error('Post not found');
@@ -142,8 +146,8 @@ class PostController extends AppBaseController
     public function destroy($id)
     {
         $post = $this->postRepository->findWithoutFail($id);
-        // check
-        $this->authorize($post);
+
+        $this->authorize($post); // check
 
         if (empty($post)) {
             Flash::error('Post not found');

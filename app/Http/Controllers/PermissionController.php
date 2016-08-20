@@ -20,6 +20,7 @@ class PermissionController extends AppBaseController
     public function __construct(PermissionRepository $permissionRepo)
     {
         $this->permissionRepository = $permissionRepo;
+        $this->middleware('permission:permission-all');
     }
 
     /**

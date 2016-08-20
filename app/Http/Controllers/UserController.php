@@ -82,6 +82,8 @@ class UserController extends AppBaseController
     {
         $user = $this->userRepository->findWithoutFail($id);
 
+        $this->authorize($user); // check
+
         if (empty($user)) {
             Flash::error('User not found');
 
@@ -101,6 +103,8 @@ class UserController extends AppBaseController
     public function edit($id)
     {
         $user = $this->userRepository->findWithoutFail($id);
+
+        $this->authorize('update', $user); // check
 
         $roles = $user->roles()->lists('id')->toArray();
 
@@ -126,6 +130,8 @@ class UserController extends AppBaseController
     public function update($id, UpdateUserRequest $request)
     {
         $user = $this->userRepository->findWithoutFail($id);
+
+        $this->authorize($user); // check
 
         if (empty($user)) {
             Flash::error('User not found');
@@ -158,6 +164,8 @@ class UserController extends AppBaseController
     public function destroy($id)
     {
         $user = $this->userRepository->findWithoutFail($id);
+
+        $this->authorize($user); // check
 
         if (empty($user)) {
             Flash::error('User not found');
