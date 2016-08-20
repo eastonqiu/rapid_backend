@@ -13,13 +13,14 @@
 
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::get('user_info', 'AuthController@getUserInfo');
-    Route::get('logout', 'AuthController@logout');
+    Route::get('user_info', 'AuthAPIController@getUserInfo');
+    Route::get('logout', 'AuthAPIController@logout');
 });
 
 
 // Auth
-Route::get('login', 'AuthController@login');
-Route::get('refresh_token', 'AuthController@refreshToken');
-// Route::post('refresh', 'AuthAPIController@refreshToken');
+Route::get('login', 'AuthAPIController@login');
+Route::get('refresh_token', 'AuthAPIController@refreshToken');
+
+// modules
 Route::resource('posts', 'PostAPIController');

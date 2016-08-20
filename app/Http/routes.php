@@ -28,10 +28,6 @@ Route::group(['prefix' => 'api', 'middleware'=>'api', 'namespace' => 'API'], fun
     });
 });
 
-// Route::auth();
-//
-Route::controller('sns', 'SNSController');
-
 Route::get('/home', 'HomeController@index');
 
 Route::resource('posts', 'PostController');
@@ -50,15 +46,9 @@ Route::post('password/email', 'Auth\PasswordController@postEmail');
 Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
 Route::post('password/reset', 'Auth\PasswordController@postReset');
 
-
+// user management
 Route::resource('permissions', 'PermissionController');
-
 Route::resource('roles', 'RoleController');
-
 Route::resource('users', 'UserController');
 
-Route::resource('tests', 'TestController');
-
-Route::resource('tests', 'TestController');
-
-Route::resource('tests', 'TestController');
+Route::controller('sns', 'SNSController');
