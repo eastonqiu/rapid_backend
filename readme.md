@@ -7,20 +7,20 @@ You can quickly add your bussiness and control every resources based on RBAC, ju
 * [JWT(JSON Web Token)](https://jwt.io/introduction/), a token(auth payload) to access a stateless api instead of the cookies in browser.
 * [About RBAC](https://en.wikipedia.org/wiki/Role-based_access_control)
 * ACL, we just make the owner have all the permissions of their own resources (related with themselves).
-* AdminLTE, a imagzing admin theme...you will like it.
+* AdminLTE, a amazing admin theme...you will like it.
 * Swagger (coming soon...)
 
 # Screenshots
 > comming soon...
 
 # Setup
-* clone this repo. (some install steps can refer to [laravel installation](https://laravel.com/docs/5.2/#installation)).
-* copy .env.example to .env, create database and modify db connection settings.
-* modify folder permission
+* Clone this repo. (some install steps can refer to [laravel installation](https://laravel.com/docs/5.2/#installation)).
+* Copy .env.example to .env, create database and modify db connection settings.
+* Modify folder permission
 ```
 sudo chmod -R www-data:www-data storage bootstrap/cache
 ```
-* enable rewrite module
+* Enable rewrite module
 ```
 sudo ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/
 
@@ -31,22 +31,22 @@ sudo ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/
     AllowOverride All
 </Directory>
 ```
-* migrate database and seed
+* Migrate database and seed
 ```
 php artisam migrate:refresh --seed
 ```
-we generate three kind of accounts:  
+We generate three kind of accounts:  
 |     email      | password |     desc    
 |  root@163.com  | 123456   |  super user   
 |  admin@163.com | 123456   |  admin user can not change role and permission  
 |  jack@163.com  | 123456   |  a normal user that only have the permissions of their own resources     
 
-* start server in the root folder
+* Start server in the root folder
 ```
 php artisan serve
 ```
-try the three accounts and feel it.  
-open http://localhost:8000/login in browser
+Try the three accounts and feel it.  
+Open http://localhost:8000/login in browser
 
 
 # JWTGuard
@@ -54,7 +54,7 @@ open http://localhost:8000/login in browser
 - JWT
 https://github.com/tymondesigns/jwt-auth/issues/513#issuecomment-186087297
 
-# Resource Access Protection.
+# Resource Access Control List(ACL).
 
 ## Owner Resource Protection ([Laravel Policy](https://laravel.com/docs/5.2/authorization#policies))
 
